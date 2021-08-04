@@ -1,0 +1,3 @@
+geneticCNN/mnist_train/*
+geneticCNN/runs/*
+geneticCNN/__pycache__/*
