@@ -74,7 +74,7 @@ Training on single Individual with MNIST run 5 epochs
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/H999/GeneticCNN-torch/blob/main/geneticCNN/test.ipynb) run cells: `import`, `class Population`, `test`
 
-See example output in file test.log
+See example output in files [test1.log](./test1.log), [test2.log](./test2.log)
 
 # ENVIRONMENT REQUIREMENTS
 
