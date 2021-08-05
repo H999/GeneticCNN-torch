@@ -6,7 +6,9 @@ Rewrite for torch with following paper: Lingxi Xie and Alan L. Yuille <a href="h
 <img src="./img/drawio plot code format.drawio.png" title="class format flow"/>
 
 ## Visualize Class format flow
+<details>
 <img src="./img/drawio plot visualize code format.drawio.png" title="visualize class format flow"/>
+</details>
 
 ## Stage (complete)
 <details>
