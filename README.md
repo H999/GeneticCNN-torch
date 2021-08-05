@@ -71,6 +71,9 @@ Example
 </details>
 
 ## Individual (complete)
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/H999/GeneticCNN-torch/blob/main/geneticCNN/test.ipynb) run cells: `import`, `class Individual`, `Train & test model for Individual`
+
 <details>
 Training on single Individual with MNIST run 5 epochs
 <img src="./img/Individual.png" title="plot Stages"/>

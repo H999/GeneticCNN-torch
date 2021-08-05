@@ -18,7 +18,7 @@ def train(model, device, train_loader, optimizer, loss_func, epoch):
         pbar.set_postfix({'loss': '{:.6f}'.format(loss.item())})
 
 
-def test(model, device, test_loader, loss_func, epoch):
+def test(model, device, test_loader, loss_func, epoch, show=False):
     model.eval()
     test_loss = 0
     correct = 0
@@ -33,16 +33,17 @@ def test(model, device, test_loader, loss_func, epoch):
 
     test_loss /= len(test_loader.dataset)
 
-    # print('\nTest Epoch {}: Average loss: {:.4f}, Accuracy: {}/{} ({:.8f}%)\n'.format(
-    #     epoch, test_loss, correct, len(test_loader.dataset),
-    #     100. * correct / len(test_loader.dataset)))
+    if show:
+        print('\nTest Epoch {}: Average loss: {:.4f}, Accuracy: {}/{} ({:.8f}%)\n'.format(
+            epoch, test_loss, correct, len(test_loader.dataset),
+            100. * correct / len(test_loader.dataset)))
 
     return 1. * correct / len(test_loader.dataset), test_loss
 
 
-def train_Individual(model, device, train_loader, test_loader, optimizer, loss_func, scheduler, epochs):
+def train_Individual(model, device, train_loader, test_loader, optimizer, loss_func, scheduler, epochs, show=False):
     for epoch in tqdm(range(epochs), leave=False):
         train(model, device, train_loader, optimizer, loss_func, epoch)
-        accuracy, loss = test(model, device, test_loader, loss_func, epoch)
+        accuracy, loss = test(model, device, test_loader, loss_func, epoch, show)
         scheduler.step()
     return accuracy, loss
