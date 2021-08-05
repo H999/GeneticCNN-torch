@@ -15,8 +15,16 @@ class Individual(torch.nn.Module):
         - The number of stages will be random 2 => 10 if don't pass
     2. `gen` : Tuple (default None)
         - The binary code for stages follow the index of num_stages
-    3. `output_size` : int
+    3. `input_size` : int (default 1)
+        - input size will be receive
+    4. `output_size` : int (default 10)
         - output size will be return, mean it is classes
+    5. `input_chanel` : int (default 128)
+        - Input chanel of Nodes
+    6. `output_chanel` : int (default 128)
+        - Output chanel of Nodes
+    7. `kernel_size` : int (default 5)
+        - Kernel size of Nodes
 
     # Returns
     - `Module`
@@ -42,10 +50,10 @@ class Individual(torch.nn.Module):
     - ValueError
     """
 
-    def __init__(self, num_stages=None, gen=None, output_size=10):
+    def __init__(self, num_stages=None, gen=None, input_size=1, output_size=10, input_chanel=128, output_chanel=128, kernel_size=5):
         super(Individual, self).__init__()
-        self.input = nn.Conv2d(1, 128, 3, padding="same")
-        self.Stages = Stages(random.randint(2, 10)) if num_stages is None and gen is None else Stages(num_stages, gen)
+        self.input = nn.Conv2d(input_size, input_chanel, 3, padding="same")
+        self.Stages = Stages(random.randint(2, 10), input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size) if num_stages is None and gen is None else Stages(num_stages, gen, input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size)
         self.output = None
         self.output_size = output_size
         self.accuracy = None

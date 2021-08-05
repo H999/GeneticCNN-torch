@@ -18,11 +18,11 @@ class Stage(torch.nn.Module):
         - Only contain '0' and '1' in string
         - The string needs at least 1 bit '1'
     3. `input_chanel` : int (default 128)
-        - Input chanel of convs
+        - Input chanel of Nodes
     4. `output_chanel` : int (default 128)
-        - Output chanel of convs
+        - Output chanel of Nodes
     5. `kernel_size` : int (default 5)
-        - Kernel size of convs
+        - Kernel size of Nodes
 
     # Returns
     - `Tensor`

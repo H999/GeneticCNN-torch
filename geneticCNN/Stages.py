@@ -18,11 +18,11 @@ class Stages(torch.nn.Module):
     2. `gen` : Tuple (default None)
         - The binary code for stages follow the index of num_stages
     3. `input_chanel` : int (default 128)
-        - Input chanel of convs
+        - Input chanel of Nodes
     4. `output_chanel` : int (default 128)
-        - Output chanel of convs
+        - Output chanel of Nodes
     5. `kernel_size` : int (default 5)
-        - Kernel size of convs
+        - Kernel size of Nodes
 
     # Returns
     - `Tensor`

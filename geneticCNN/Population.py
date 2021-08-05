@@ -41,6 +41,16 @@ class Population:
         - rate stages in Individual crossover
     15. `mutation_rate` : float (default 0.015)
         - rate stages in Individual mutation
+    16. `input_size` : int (default 1)
+        - input size Individual will be receive
+    17. `output_size` : int (default 10)
+        - output size Individual will be return, mean it is classes
+    18. `input_chanel` : int (default 128)
+        - Input chanel of Nodes
+    19. `output_chanel` : int (default 128)
+        - Output chanel of Nodes
+    20. `kernel_size` : int (default 5)
+        - Kernel size of Nodes
 
     # Returns
     - `Population`
@@ -88,14 +98,15 @@ class Population:
     def __init__(self,
                  train_loader, test_loader, optimizer, optimizer_setting, loss_func, scheduler, scheduler_setting, epochs=5,
                  population_size=16, num_stages=(3, 5), gens=None, crossover_probability=0.2, mutation_probability=0.8, crossover_rate=0.5, mutation_rate=0.015,
+                 input_size=1, output_size=10, input_chanel=128, output_chanel=128, kernel_size=5
                  ):
         super(Population, self).__init__()
 
         print('init Population with:')
         self.population_size = population_size
         print(f'\t - population_size = {population_size}')
-        self.individuals = [Individual(num_stages) if gens is None
-                            else Individual(num_stages, gens[i])
+        self.individuals = [Individual(num_stages, input_size=input_size, output_size=output_size, input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size) if gens is None
+                            else Individual(num_stages, gens[i], input_size=input_size, output_size=output_size, input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size)
                             for i in range(population_size)]
         print(f'\t - num_stages = {num_stages}')
         print(f'\t - gens = {[x.Stages.gen for x in self.individuals]}')

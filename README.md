@@ -1,19 +1,24 @@
 # REWRITE GENETIC CNN BY TORCH
 
-<details>
-  <summary><h2>Stage (complete)</h1></summary>
+Rewrite for torch with following paper: Lingxi Xie and Alan L. Yuille <a href="https://arxiv.org/abs/1703.01513">Genetic CNN</a>
 
+## Class format flow
+<img src="./img/drawio plot code format.drawio.png" title="class format flow"/>
+
+## Visualize Class format flow
+<img src="./img/drawio plot visualize code format.drawio.png" title="visualize class format flow"/>
+
+## Stage (complete)
+<details>
 Example
 - num_nodes = 5
 - binary_code = 1100000001
 - separated_connections = 1-10-000-0001
-
-<img src="./img/plot Stage.drawio.png" title="plot Stage">
+<img src="./img/plot Stage.drawio.png" title="plot Stage"/>
 </details>
 
+## Stages (complete)
 <details>
-  <summary><h2>Stages (complete)</h1></summary>
-
 Example
 - num_stages = (6, 9, 8)
 - binary_code_stages_model = {'S_1': '1-00-010-0110-00100', 'S_2': '0-00-000-1001-01101-001110-0101101-00001110', 'S_3': '1-01-001-1100-10011-011100-1100110'}
@@ -60,17 +65,16 @@ Example
 </tbody>
 </table>
 
-<img src="./img/plot Stages.drawio.png" title="plot Stages">
+<img src="./img/plot Stages.drawio.png" title="plot Stages"/>
 </details>
 
+## Individual (complete)
 <details>
-  <summary><h2>Individual (complete)</h1></summary>
-
 Training on single Individual with MNIST run 5 epochs
-<img src="./img/Individual.png" title="plot Stages">
+<img src="./img/Individual.png" title="plot Stages"/>
 </details>
 
-## Population (complete)
+## Population & Genetic Algorithm (complete)
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/H999/GeneticCNN-torch/blob/main/geneticCNN/test.ipynb) run cells: `import`, `class Population`, `test`
 
