@@ -3,7 +3,7 @@ import torch
 import random
 
 from Individual import Individual
-from train_Individual import train_Individual
+from lib.train_Individual import train_Individual
 
 
 class Population:
