@@ -3,7 +3,8 @@ import torch
 import random
 
 from Individual import Individual
-from lib.train_Individual import train_Individual
+from importlib import import_module
+lib = import_module('GeneticCNN-torch.lib')
 
 
 class Population:
@@ -139,7 +140,7 @@ class Population:
                 print(f'\t\tTraining {self.individuals[i].Stages.gen_model}')
                 optimizer = self.optimizer(self.individuals[i].parameters(), **self.optimizer_setting)
                 scheduler = self.scheduler(optimizer, **self.scheduler_setting)
-                self.individuals[i].accuracy, self.individuals[i].loss = train_Individual(
+                self.individuals[i].accuracy, self.individuals[i].loss = lib.train_Individual.train_Individual(
                     self.individuals[i], self.device,
                     self.train_loader, self.test_loader,
                     optimizer, self.loss_func, scheduler, self.epochs)
