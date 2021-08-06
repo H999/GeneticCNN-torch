@@ -2,11 +2,13 @@ import copy
 import torch
 import random
 
+from pathlib import Path
 from Individual import Individual
 from importlib import import_module
 
 train_Individual = import_module('GeneticCNN-torch.lib.train_Individual')
 save_Individual = import_module('GeneticCNN-torch.lib.save_Individual')
+load_Individual = import_module('GeneticCNN-torch.lib.load_Individual')
 
 
 class Population:
@@ -54,6 +56,8 @@ class Population:
         - Output chanel of Nodes
     20. `kernel_size` : int (default 5)
         - Kernel size of Nodes
+    21. `path` : str (default 'model/')
+        - Where trained model have save
 
     # Returns
     - `Population`
@@ -92,6 +96,8 @@ class Population:
         - rate stages in Individual crossover
     - `Population.mutation_rate` : float
         - rate stages in Individual mutation
+    -. `Population.path` : str
+        - Where trained model have save
 
     Raises
     ------
@@ -101,7 +107,8 @@ class Population:
     def __init__(self,
                  train_loader, test_loader, optimizer, optimizer_setting, loss_func, scheduler, scheduler_setting, epochs=5,
                  population_size=16, num_stages=(3, 5), gens=None, crossover_probability=0.2, mutation_probability=0.8, crossover_rate=0.5, mutation_rate=0.015,
-                 input_size=1, output_size=10, input_chanel=128, output_chanel=128, kernel_size=5
+                 input_size=1, output_size=10, input_chanel=128, output_chanel=128, kernel_size=5,
+                 path='model'
                  ):
         super(Population, self).__init__()
 
@@ -134,22 +141,39 @@ class Population:
         self.scheduler = scheduler
         self.scheduler_setting = scheduler_setting
         self.epochs = epochs
+        self.path = Path.cwd() / path / '_'.join(map(str, num_stages))
+        try:
+            self.path.mkdir(parents=True, exist_ok=False)
+        except FileExistsError:
+            print(f"Folder {self.path} for save/load model is already there")
+        else:
+            print(f"Folder {self.path} was created for save/load model")
 
     def fitness_function(self):
         print('\tfitness_function\n')
         for i in range(self.population_size):
+            print(f'\t\t{self.individuals[i].Stages.gen_model}')
+            filename = ' '.join([str(int(x, 2)) for x in self.individuals[i].Stages.gen]) + '.pt'
+
             if self.individuals[i].accuracy is None and self.individuals[i].loss is None:
-                print(f'\t\tTraining {self.individuals[i].Stages.gen_model}')
+                try:
+                    self.individuals[i] = load_Individual.load_Individual(self.path/filename)[0]
+                    print(f'\t\tLoading')
+                    pass
+                except:
+                    print(f'\t\tTraining')
                 optimizer = self.optimizer(self.individuals[i].parameters(), **self.optimizer_setting)
                 scheduler = self.scheduler(optimizer, **self.scheduler_setting)
                 self.individuals[i].accuracy, self.individuals[i].loss = train_Individual.train_Individual(
                     self.individuals[i], self.device,
                     self.train_loader, self.test_loader,
                     optimizer, self.loss_func, scheduler, self.epochs)
-                print(f'\t\tFitness = {self.individuals[i].accuracy:0.8f}')
-                print('\t\t---------------------------------------------\n')
-                if self.individuals[i].accuracy > self.maximize[1]:
-                    self.maximize = (self.individuals[i].Stages.gen_model, self.individuals[i].accuracy, self.individuals[i].loss)
+                save_Individual.save_Individual(self.individuals[i], optimizer, scheduler, self.path/filename)
+
+            print(f'\t\tFitness = {self.individuals[i].accuracy:0.8f}')
+            print('\t\t---------------------------------------------\n')
+            if self.individuals[i].accuracy > self.maximize[1]:
+                self.maximize = (self.individuals[i].Stages.gen_model, self.individuals[i].accuracy, self.individuals[i].loss)
         print('\t\tMaximize of Population: {} - Fitness = {:0.8f}\n'.format(*self.maximize))
         print('\t=============================================\n')
 
