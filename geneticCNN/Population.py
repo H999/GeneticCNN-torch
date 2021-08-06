@@ -129,7 +129,6 @@ class Population:
         print(f'\t - crossover_rate = {crossover_rate}')
         self.mutation_rate = mutation_rate
         print(f'\t - mutation_rate = {mutation_rate}')
-        print('---------------------------------------------\n')
         self.maximize = ('', 0, 1)
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -141,13 +140,15 @@ class Population:
         self.scheduler = scheduler
         self.scheduler_setting = scheduler_setting
         self.epochs = epochs
+        print(f'\t - epochs = {epochs}')
         self.path = Path.cwd() / path / '_'.join(map(str, num_stages))
         try:
             self.path.mkdir(parents=True, exist_ok=False)
         except FileExistsError:
-            print(f"Folder {self.path} for save/load model is already there")
+            print(f"\tFolder {self.path} for save/load model is already there")
         else:
-            print(f"Folder {self.path} was created for save/load model")
+            print(f"\tFolder {self.path} was created for save/load model")
+        print('---------------------------------------------\n')
 
     def fitness_function(self):
         print('\tfitness_function\n')

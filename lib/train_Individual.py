@@ -15,7 +15,7 @@ def train(model, device, train_loader, optimizer, loss_func, epoch):
         loss = loss_func(output, target)
         loss.backward()
         optimizer.step()
-        pbar.set_postfix({'loss': '{:.8f}'.format(loss.item())})
+        pbar.set_postfix({'lr': optimizer.param_groups[0]['lr'], 'loss': '{:.8f}'.format(loss.item())})
 
 
 def test(model, device, test_loader, loss_func, epoch, show=False):
