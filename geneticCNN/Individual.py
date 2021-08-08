@@ -3,7 +3,7 @@ import random
 import torch.nn as nn
 import torch.nn.functional as F
 
-from Stages import Stages
+from geneticCNN.Stages import Stages
 
 
 class Individual(torch.nn.Module):
@@ -53,7 +53,11 @@ class Individual(torch.nn.Module):
     def __init__(self, num_stages=None, gen=None, input_size=1, output_size=10, input_chanel=128, output_chanel=128, kernel_size=5):
         super(Individual, self).__init__()
         self.input = nn.Conv2d(input_size, input_chanel, 3, padding="same")
-        self.Stages = Stages(random.randint(2, 10), input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size) if num_stages is None and gen is None else Stages(num_stages, gen, input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size)
+        self.Stages = Stages(
+            random.randint(2, 10), input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size
+        ) if num_stages is None and gen is None else Stages(
+            num_stages, gen, input_chanel=input_chanel, output_chanel=output_chanel, kernel_size=kernel_size
+        )
         self.output = None
         self.output_size = output_size
         self.accuracy = None

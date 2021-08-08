@@ -3,12 +3,10 @@ import torch
 import random
 
 from pathlib import Path
-from Individual import Individual
-from importlib import import_module
-
-train_Individual = import_module('GeneticCNN-torch.lib.train_Individual')
-save_Individual = import_module('GeneticCNN-torch.lib.save_Individual')
-load_Individual = import_module('GeneticCNN-torch.lib.load_Individual')
+from geneticCNN.Individual import Individual
+from lib.save_Individual import save_Individual
+from lib.load_Individual import load_Individual
+from lib.train_Individual import train_Individual
 
 
 class Population:

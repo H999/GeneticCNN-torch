@@ -3,7 +3,7 @@ import random
 import torch.nn as nn
 import torch.nn.functional as F
 
-from Stage import Stage
+from geneticCNN.Stage import Stage
 
 
 class Stages(torch.nn.Module):
