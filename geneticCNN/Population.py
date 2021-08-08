@@ -156,17 +156,17 @@ class Population:
 
             if self.individuals[i].accuracy is None and self.individuals[i].loss is None:
                 try:
-                    self.individuals[i] = load_Individual.load_Individual(self.path/filename)[0]
+                    self.individuals[i] = load_Individual(self.path/filename)[0]
                     print(f'\t\tLoading')
                 except:
                     print(f'\t\tTraining')
                     optimizer = self.optimizer(self.individuals[i].parameters(), **self.optimizer_setting)
                     scheduler = self.scheduler(optimizer, **self.scheduler_setting)
-                    self.individuals[i].accuracy, self.individuals[i].loss = train_Individual.train_Individual(
+                    self.individuals[i].accuracy, self.individuals[i].loss = train_Individual(
                         self.individuals[i], self.device,
                         self.train_loader, self.test_loader,
                         optimizer, self.loss_func, scheduler, self.epochs)
-                    save_Individual.save_Individual(self.individuals[i], optimizer, scheduler, self.path/filename)
+                    save_Individual(self.individuals[i], optimizer, scheduler, self.path/filename)
 
             print(f'\t\tFitness = {self.individuals[i].accuracy:0.8f}')
             print('\t\t---------------------------------------------\n')
